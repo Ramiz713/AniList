@@ -20,7 +20,7 @@ class AnimeDetailsActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         with(intent.getParcelableExtra<AnimeItem>(EXTRA_ANIME_ITEM)) {
-            Glide.with(this@AnimeDetailsActivity).load(image_url).into(image_anime)
+            Glide.with(this@AnimeDetailsActivity).load(imageUrl).into(image_anime)
             image_anime.transitionName = intent.getStringExtra(EXTRA_IMAGE)
             binding.animeItem = this
         }

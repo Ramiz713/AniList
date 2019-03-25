@@ -41,7 +41,7 @@ class AnimeAdapter(private val listener: ((Pair<AnimeItem, ImageView>)) -> Unit)
     class AnimeHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(item: AnimeItem?): Unit {
             tv_anime_name.text = item?.title
-            Glide.with(containerView).load(item?.image_url).into(image_anime)
+            Glide.with(containerView).load(item?.imageUrl).into(image_anime)
         }
     }
 
@@ -51,7 +51,7 @@ class AnimeAdapter(private val listener: ((Pair<AnimeItem, ImageView>)) -> Unit)
             override fun areItemsTheSame(
                 oldItem: AnimeItem,
                 newItem: AnimeItem
-            ) = oldItem.mal_id == newItem.mal_id
+            ) = oldItem.id == newItem.id
 
             override fun areContentsTheSame(
                 oldItem: AnimeItem,
