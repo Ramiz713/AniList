@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="animeItem"
+                type="com.itis2019.anilist.entitites.AnimeItem"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/image_anime"
+                android:src="@mipmap/ic_launcher"
+                android:layout_margin="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/line_left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/line_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+
+        <android.support.constraint.Guideline
+                android:id="@+id/line_left"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.6"/>
+
+        <android.support.constraint.Guideline
+                android:id="@+id/line_center"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"/>
+
+        <TextView
+                android:id="@+id/tv_title"
+                android:textSize="24sp"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/line_center"
+                android:layout_width="0dp"
+                android:text="@{animeItem.title}"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/tv_episodes"/>
+
+        <TextView
+                android:id="@+id/tv_episodes"
+                android:textSize="24sp"
+                android:layout_marginLeft="20dp"
+                android:text="@{String.valueOf(animeItem.episodes)}"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/tv_score"/>
+
+        <TextView
+                android:id="@+id/tv_score"
+                android:textSize="24sp"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_episodes"
+                android:text="@{String.valueOf(animeItem.score)}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/tv_gender"/>
+
+        <TextView
+                android:id="@+id/tv_gender"
+                android:textSize="24sp"
+                android:layout_marginLeft="20dp"
+                android:text="@{String.valueOf(animeItem.rank)}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
