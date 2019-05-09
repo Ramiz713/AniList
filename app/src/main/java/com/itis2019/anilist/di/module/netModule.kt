@@ -2,12 +2,12 @@ package com.itis2019.anilist.di.module
 
 import com.itis2019.anilist.BuildConfig
 import com.itis2019.anilist.api.JikanApiService
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 fun netModule () = Module("module name") {
@@ -19,6 +19,6 @@ fun netModule () = Module("module name") {
 private fun provideRetrofit(): Retrofit =
     Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(BuildConfig.API_BASE_URL)
         .build()

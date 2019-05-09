@@ -2,15 +2,15 @@ package com.itis2019.anilist.ui.animeList
 
 
 import android.app.ActivityOptions
-import android.arch.lifecycle.ViewModelProviders
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,38 +39,43 @@ class AnimeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_anime_list, container, false)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(AnimeListViewModel::class.java)
-        initRecycler(view)
-        observeAnimeList(view)
-        observeProgressBar()
-        observeItemClick()
-        return view
+        return inflater.inflate(R.layout.fragment_anime_list, container, false)
     }
 
-    private fun observeAnimeList(view: View) =
-        viewModel.onLoadNextPage().observe(this, Observer {
-            when {
-                it?.data != null -> adapter.submitList(it.data)
-                it?.error != null -> Snackbar.make(view, it.error.localizedMessage, Snackbar.LENGTH_SHORT).show()
-                else -> Snackbar.make(view, "We have problem!!!", Snackbar.LENGTH_SHORT).show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecycler(view)
+        observeLoading()
+        observeError(view)
+        observeAnimeList()
+        observeItemClick()
+    }
+
+    private fun observeLoading() =
+        viewModel.isLoading().observe(this, Observer {
+            it?.let { isLoading ->
+                progress_bar.visibility = if (isLoading) View.VISIBLE else View.GONE
             }
         })
 
+    private fun observeError(view: View) {
+        viewModel.isError().observe(this, Observer {
+            Snackbar.make(view, it?.localizedMessage ?: "Problems", Snackbar.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun observeAnimeList() =
+        viewModel.onLoadNextPage().observe(this, Observer {
+            adapter.submitList(it)
+        })
+
     private fun initRecycler(view: View) {
-        val manager = GridLayoutManager(activity, 2)
+        val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_anime)
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
     }
-
-    private fun observeProgressBar() =
-        viewModel.isLoading().observe(this, Observer {
-            if (it != null && it)
-                progress_bar.visibility = View.VISIBLE
-            else
-                progress_bar.visibility = View.GONE
-        })
 
     private fun observeItemClick() =
         viewModel.navigateToAnimeDetails.observe(this, Observer {
