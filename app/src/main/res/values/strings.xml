@@ -3,5 +3,7 @@
     <string name="desc_img_anime">Poster of the anime</string>
     <string name="top_anime">Top anime</string>
     <string name="top_manga">Top manga</string>
+    <string name="rank">#%d</string>
+    <string name="type_and_episodes">%s (%d eps)</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

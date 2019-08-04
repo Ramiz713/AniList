@@ -1,6 +1,5 @@
 package com.itis2019.anilist.ui.animeList
 
-
 import android.app.ActivityOptions
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders

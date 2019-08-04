@@ -1,13 +1,30 @@
 <resources>
 
-    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColor">@android:color/black</item>
+    <style name="AniListTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryDark">@android:color/white</item>
-        <item name="colorAccent">@android:color/black</item>
-        <item name="android:windowEnterTransition">@android:transition/explode</item>
-        <item name="android:windowExitTransition">@android:transition/explode</item>
+        <item name="colorAccent">@color/colorText</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AniListTheme.Launcher">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+    <style name="TextAppearance">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.CardsText">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:background">@color/colorTransparentWhite</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
 
 </resources>

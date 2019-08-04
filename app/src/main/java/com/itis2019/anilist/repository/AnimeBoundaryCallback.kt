@@ -9,9 +9,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class AnimeBoundaryCallback(private val apiService: JikanApiService, private val animeDao: AnimeDao) :
-    PagedList.BoundaryCallback<AnimeItem>(), ResponseCallback {
+    PagedList.BoundaryCallback<AnimeItem>(), CoroutineScope, ResponseCallback {
 
     private var page = 1
 
@@ -19,7 +20,9 @@ class AnimeBoundaryCallback(private val apiService: JikanApiService, private val
     private val errorData = MutableLiveData<Throwable>()
 
     private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.IO + job)
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO + job
 
     override val isLoading: MutableLiveData<Boolean>
         get() = loadingData
@@ -36,14 +39,13 @@ class AnimeBoundaryCallback(private val apiService: JikanApiService, private val
         getTopAnimeList()
     }
 
-    private fun getTopAnimeList() {
-        scope.launch {
+    private fun getTopAnimeList() =
+        launch {
             invokeSuspend {
-                val items = apiService.getTopAnimeListAsync(page++).await().top
+                val items = apiService.getTopAnimeListAsync(page++).top
                 animeDao.insert(items)
             }
         }
-    }
 
     @Suppress("TooGenericExceptionCaught")
     suspend fun <T> invokeSuspend(suspendBlock: suspend () -> T): T? = try {

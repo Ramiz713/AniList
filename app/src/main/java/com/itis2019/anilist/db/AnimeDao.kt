@@ -9,7 +9,8 @@ import com.itis2019.anilist.entitites.AnimeItem
 
 @Dao
 interface AnimeDao {
-    @Query("SELECT * FROM anime_data ORDER BY score DESC")
+
+    @Query("SELECT * FROM anime_data ORDER BY rank")
     fun getAll(): DataSource.Factory<Int, AnimeItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
