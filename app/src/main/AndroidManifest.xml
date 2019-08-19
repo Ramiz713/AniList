@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AniListTheme">
 
-        <activity android:name=".ui.AnimeDetailsActivity">
+        <activity android:name=".ui.animeDetails.AnimeDetailsActivity">
 
         </activity>
 

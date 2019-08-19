@@ -1,17 +1,14 @@
 package com.itis2019.anilist.ui.mangaList
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.itis2019.anilist.R
 import com.itis2019.anilist.di.di
 import com.itis2019.anilist.ui.ViewModelFactory
@@ -39,7 +36,7 @@ class MangaListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler(view)
+        initRecycler()
         observeLoading()
         observeError(view)
         observeAnimeList()
@@ -55,7 +52,11 @@ class MangaListFragment : Fragment() {
 
     private fun observeError(view: View) {
         viewModel.isError().observe(this, Observer {
-            Snackbar.make(view, it?.localizedMessage ?: "Problems", Snackbar.LENGTH_SHORT).show()
+            com.google.android.material.snackbar.Snackbar.make(
+                view,
+                it?.localizedMessage ?: "Problems",
+                com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+            ).show()
         })
     }
 
@@ -64,9 +65,12 @@ class MangaListFragment : Fragment() {
             adapter.submitList(it)
         })
 
-    private fun initRecycler(view: View) {
-        val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val recyclerView = rv_manga as RecyclerView
+    private fun initRecycler() {
+        val manager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
+            2,
+            androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+        )
+        val recyclerView = rv_manga as androidx.recyclerview.widget.RecyclerView
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
     }

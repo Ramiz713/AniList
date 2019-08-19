@@ -1,15 +1,19 @@
 package com.itis2019.anilist.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.PagedList
-import com.itis2019.anilist.entitites.AnimeItem
-import com.itis2019.anilist.entitites.MangaItem
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
+import com.itis2019.anilist.entitites.anime.AnimeItem
+import com.itis2019.anilist.entitites.manga.MangaItem
 
-interface Repository{
+interface Repository {
 
-    fun getAnimePage(): LiveData<PagedList<AnimeItem>>
+    fun getAnimeLivePagedList(): LiveData<PagedList<AnimeItem>>
 
-    fun getMangaPage(): LiveData<PagedList<MangaItem>>
+    fun getMangaLivePagedList(): LiveData<PagedList<MangaItem>>
 
-    val responseCallback: ResponseCallback
+    suspend fun getAnimeItem(id: Int): AnimeItem
+
+    val animeResponseCallback: ResponseCallback
+
+    val mangaResponseCallback: ResponseCallback
 }

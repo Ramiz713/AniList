@@ -1,17 +1,17 @@
 package com.itis2019.anilist.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.itis2019.anilist.api.JikanApiService
 import com.itis2019.anilist.db.AnimeDao
 import com.itis2019.anilist.db.MangaDao
-import com.itis2019.anilist.entitites.AnimeItem
-import com.itis2019.anilist.entitites.MangaItem
+import com.itis2019.anilist.entitites.anime.AnimeItem
+import com.itis2019.anilist.entitites.manga.MangaItem
 import com.itis2019.anilist.utils.EXTRA_PAGE_SIZE
 
 class RepositoryImpl(
-    apiService: JikanApiService,
+    private val apiService: JikanApiService,
     private val animeDao: AnimeDao,
     private val mangaDao: MangaDao
 ) : Repository {
@@ -19,16 +19,30 @@ class RepositoryImpl(
     private val animeBoundaryCallback = AnimeBoundaryCallback(apiService, animeDao)
     private val mangaBoundaryCallback = MangaBoundaryCallback(apiService, mangaDao)
 
-    override val responseCallback: ResponseCallback
-        get() = animeBoundaryCallback
-
-    override fun getAnimePage(): LiveData<PagedList<AnimeItem>> =
+    private val animeLivePagedList =
         LivePagedListBuilder(animeDao.getAll(), EXTRA_PAGE_SIZE)
             .setBoundaryCallback(animeBoundaryCallback)
             .build()
 
-    override fun getMangaPage(): LiveData<PagedList<MangaItem>> =
-        LivePagedListBuilder(mangaDao.getAll(), EXTRA_PAGE_SIZE).setBoundaryCallback(mangaBoundaryCallback)
+    private val mangaLivePagedList =
+        LivePagedListBuilder(mangaDao.getAll(), EXTRA_PAGE_SIZE)
+            .setBoundaryCallback(mangaBoundaryCallback)
             .build()
+
+    override val animeResponseCallback: ResponseCallback
+        get() = animeBoundaryCallback
+
+    override val mangaResponseCallback: ResponseCallback
+        get() = mangaBoundaryCallback
+
+    override fun getAnimeLivePagedList(): LiveData<PagedList<AnimeItem>> = animeLivePagedList
+
+    override fun getMangaLivePagedList(): LiveData<PagedList<MangaItem>> = mangaLivePagedList
+
+    override suspend fun getAnimeItem(id: Int): AnimeItem {
+        val animeItem = apiService.getAnimeItemAsync(id)
+        animeDao.update(animeItem)
+        return animeItem
+    }
 
 }

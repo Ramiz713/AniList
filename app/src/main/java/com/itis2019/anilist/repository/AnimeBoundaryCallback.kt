@@ -1,10 +1,10 @@
 package com.itis2019.anilist.repository
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.PagedList
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
 import com.itis2019.anilist.api.JikanApiService
 import com.itis2019.anilist.db.AnimeDao
-import com.itis2019.anilist.entitites.AnimeItem
+import com.itis2019.anilist.entitites.anime.AnimeItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -43,7 +43,7 @@ class AnimeBoundaryCallback(private val apiService: JikanApiService, private val
         launch {
             invokeSuspend {
                 val items = apiService.getTopAnimeListAsync(page++).top
-                animeDao.insert(items)
+                animeDao.insertList(items)
             }
         }
 

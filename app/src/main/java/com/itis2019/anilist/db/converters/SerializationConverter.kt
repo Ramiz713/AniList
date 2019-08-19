@@ -1,9 +1,9 @@
 package com.itis2019.anilist.db.converters
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.itis2019.anilist.entitites.Serialization
+import com.itis2019.anilist.entitites.manga.Serialization
 
 class SerializationConverter {
 
@@ -12,6 +12,6 @@ class SerializationConverter {
         Gson().toJson(listOfAuthors, object : TypeToken<List<Serialization>>() {}.type)
 
     @TypeConverter
-    fun deserialize(listOfAuthors: String): List<Serialization>? =
-        Gson().fromJson(listOfAuthors, object : TypeToken<List<Serialization>>() {}.type)
+    fun deserialize(jsonOfAuthors: String): List<Serialization>? =
+        Gson().fromJson(jsonOfAuthors, object : TypeToken<List<Serialization>>() {}.type)
 }

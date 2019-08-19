@@ -1,9 +1,9 @@
 package com.itis2019.anilist.db.converters
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.itis2019.anilist.entitites.Genre
+import com.itis2019.anilist.entitites.manga.Genre
 
 class GenresConverter {
 
@@ -12,6 +12,6 @@ class GenresConverter {
         Gson().toJson(listOfGenres, object : TypeToken<List<Genre>>() {}.type)
 
     @TypeConverter
-    fun deserialize(listOfGenres: String?): List<Genre>? =
-        Gson().fromJson(listOfGenres, object : TypeToken<List<Genre>>() {}.type)
+    fun deserialize(jsonOfGenres: String?): List<Genre>? =
+        Gson().fromJson(jsonOfGenres, object : TypeToken<List<Genre>>() {}.type)
 }

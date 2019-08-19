@@ -1,16 +1,16 @@
 package com.itis2019.anilist.ui.animeList
 
-import android.arch.paging.PagedListAdapter
-import android.support.v4.view.ViewCompat
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.itis2019.anilist.R
-import com.itis2019.anilist.entitites.AnimeItem
+import com.itis2019.anilist.entitites.anime.AnimeItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.anime_item.*
 import kotlinx.android.synthetic.main.anime_item.view.*

@@ -1,23 +1,21 @@
 package com.itis2019.anilist.ui.animeList
 
 import android.app.ActivityOptions
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import com.itis2019.anilist.R
 import com.itis2019.anilist.di.di
-import com.itis2019.anilist.ui.AnimeDetailsActivity
 import com.itis2019.anilist.ui.ViewModelFactory
+import com.itis2019.anilist.ui.animeDetails.AnimeDetailsActivity
 import com.itis2019.anilist.utils.EXTRA_ANIME_ITEM
 import com.itis2019.anilist.utils.EXTRA_IMAGE
 import kotlinx.android.synthetic.main.fragment_anime_list.*
@@ -70,8 +68,12 @@ class AnimeListFragment : Fragment() {
         })
 
     private fun initRecycler(view: View) {
-        val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_anime)
+        val manager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
+            2,
+            androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+        )
+        val recyclerView =
+            view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_anime)
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
     }

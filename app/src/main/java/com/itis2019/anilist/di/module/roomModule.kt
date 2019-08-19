@@ -1,7 +1,7 @@
 package com.itis2019.anilist.di.module
 
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import com.itis2019.anilist.db.AnimeDao
 import com.itis2019.anilist.db.AppDatabase
 import com.itis2019.anilist.db.MangaDao

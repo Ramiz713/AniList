@@ -1,11 +1,11 @@
 package com.itis2019.anilist.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
-import android.arch.persistence.room.TypeConverters
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.itis2019.anilist.db.converters.*
-import com.itis2019.anilist.entitites.AnimeItem
-import com.itis2019.anilist.entitites.MangaItem
+import com.itis2019.anilist.entitites.anime.AnimeItem
+import com.itis2019.anilist.entitites.manga.MangaItem
 
 @Database(entities = [AnimeItem::class, MangaItem::class], version = 1)
 @TypeConverters(
@@ -13,7 +13,11 @@ import com.itis2019.anilist.entitites.MangaItem
     GenresConverter::class,
     RelatedConverter::class,
     SerializationConverter::class,
-    SynonymsConverter::class
+    SynonymsConverter::class,
+    LicensorsConverter::class,
+    ProducersConverter::class,
+    StudioConverter::class,
+    PropConverter::class
 )
 abstract class AppDatabase : RoomDatabase() {
 

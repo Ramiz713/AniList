@@ -1,8 +1,7 @@
 package com.itis2019.anilist.ui
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.itis2019.anilist.R
 import com.itis2019.anilist.ui.animeList.AnimeListFragment
 import com.itis2019.anilist.ui.mangaList.MangaListFragment
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(view_pager)
     }
 
-    private fun setViewPager(pager: ViewPager) {
+    private fun setViewPager(pager: androidx.viewpager.widget.ViewPager) {
         val adapter = TabPagerAdapter(supportFragmentManager)
         val fragmentOne = AnimeListFragment()
         val fragmentTwo = MangaListFragment()

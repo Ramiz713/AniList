@@ -1,9 +1,9 @@
 package com.itis2019.anilist.db.converters
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.itis2019.anilist.entitites.Related
+import com.itis2019.anilist.entitites.manga.Related
 
 class RelatedConverter {
 
@@ -12,6 +12,6 @@ class RelatedConverter {
         Gson().toJson(related, object : TypeToken<Related>() {}.type)
 
     @TypeConverter
-    fun deserialize(related: String?): Related? =
-        Gson().fromJson(related, object : TypeToken<Related>() {}.type)
+    fun deserialize(jsonRelated: String?): Related? =
+        Gson().fromJson(jsonRelated, object : TypeToken<Related>() {}.type)
 }

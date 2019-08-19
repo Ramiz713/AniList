@@ -1,16 +1,15 @@
 package com.itis2019.anilist.ui.mangaList
 
-import android.arch.paging.PagedListAdapter
-import android.support.v4.view.ViewCompat
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.itis2019.anilist.R
-import com.itis2019.anilist.entitites.MangaItem
+import com.itis2019.anilist.entitites.manga.MangaItem
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.anime_item.*
 import kotlinx.android.synthetic.main.anime_item.view.*
@@ -38,7 +37,8 @@ class MangaAdapter(private val listener: ((Pair<MangaItem, ImageView>)) -> Unit)
     }
 
 
-    class MangaHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class MangaHolder(override val containerView: View) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(item: MangaItem?) {
             item?.let {
                 with(it) {
